@@ -61,7 +61,7 @@ async(req,res)=>{
              //after creating user we will generate token
              //payload is used for how you want to look you token so here it will contain user _id and user email
              const payload={
-                 user:{
+                 users:{
                      id:newUser._id,
                      name:newUser.name
                  }
@@ -69,7 +69,7 @@ async(req,res)=>{
              //jwt is used to generate the token
              jwt.sign(
                  payload,
-                 congig.get('jwtsecret'),{
+                 config.get('jwtsecret'),{
                     expiresIn: 360000
                  },
                  (err,token)=>{
@@ -96,4 +96,19 @@ async(req,res)=>{
     }
 
 });
+
+router.get('/',
+async(req,res)=>{
+    try
+    {
+    let user= await userList.find();
+    res.send(user);
+    }
+    catch(err)
+    {
+        res.send(err);
+    }
+
+}
+);
 module.exports = router;

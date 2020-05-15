@@ -10,4 +10,5 @@ connectDB();
 app.use('/api/users',userRoute);
 
 
+
 app.listen(port, () => console.log(`server running on port ${port}`));
