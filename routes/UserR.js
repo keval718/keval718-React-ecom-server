@@ -111,4 +111,59 @@ async(req,res)=>{
 
 }
 );
+
+router.post('/login',async(req,res)=>{
+
+    try{
+        console.log("inside");
+        let user= await userList.findOne({
+            email:req.body.email
+        });
+    console.log(user+"inside");
+    if(!user)
+    {
+       res.send("User not found ");
+    }
+   
+        const validpassword= await bcrypt.compare(req.body.password,user.password);
+        console.log(validpassword);
+        const payload = {
+            user: {
+                id: user.id,
+                name: user.name
+    
+            }
+        }
+        if(!validpassword)
+        {
+            res.send("invalid");
+        }
+        else
+        {
+            jwt.sign(
+                payload,
+                config.get('jwtsecret'), {
+                    expiresIn: 36000
+                },
+                (err, token) => {
+                    if (err) throw err;
+                    res.json({
+                        token
+                    });
+                }
+            );
+    
+        }
+    
+            
+
+    
+
+
+}
+catch(err)
+{
+    res.send(err);
+}
+});
 module.exports = router;
