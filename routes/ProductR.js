@@ -61,4 +61,33 @@ router.get('/',async(req,res)=>{
     }
 
 });
+router.delete('/:id',async(req,res)=>{
+    try{
+          const pid=await productList.findById(req.params.id);
+          pid.delete();
+          res.json("product deleted");
+    }
+    catch(err)
+    {
+        res.send(err);
+    }
+});
+
+router.put('/:id',async(req,res)=>{
+    try{
+    let pid=await productList.findById(req.params.id);
+    console.log(pid);
+    pid.name=req.body.name;
+    pid.price=req.body.price;
+    pid.description=req.body.description;
+    pid.image=req.body.image;
+    const product=await pid.save();
+    res.send(product);
+    }
+    catch(err)
+    {
+        res.send(err);
+    }
+
+})
 module.exports=router;
