@@ -1,0 +1,4 @@
+{
+    "mongoDBConnectURI":"mongodb+srv://keval:Keval1234@cluster0-54swq.mongodb.net/ecom?retryWrites=true&w=majority",
+    "jwtsecret":"secret"
+}
