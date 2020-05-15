@@ -31,7 +31,8 @@ async(req,res)=>{
         }
         else
         {
-            console.body(req.body);
+            console.log("inside ");
+            console.log(req.body);
             try{
             let user= await userList.findOne({
                 email:req.body.email
@@ -95,3 +96,4 @@ async(req,res)=>{
     }
 
 });
+module.exports = router;
